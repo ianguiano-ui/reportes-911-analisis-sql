@@ -36,6 +36,15 @@ Las categorías principales de los incidentes son:
 * Otros Servicios
 * Improcedentes
 
+### Distribución municipal
+
+La distribución de incidentes del conjunto de datos sintético fue
+ponderada proporcionalmente con base en la población municipal utilizada
+como referencia.
+
+Esta ponderación tiene fines exclusivamente educativos y no representa
+estadísticas reales de incidencia delictiva o de emergencias.
+
 ## Herramientas
 
 * MySQL
