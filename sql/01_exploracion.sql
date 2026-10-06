@@ -2,40 +2,18 @@
 -- Proyecto: Reportes 911 2026
 
 USE Reportes_911;
-
+-- =====================================================
+-- VERIFICAR CANTIDAD TOTAL DE REGISTROS
+-- =====================================================
 -- Verificar cantidad total de registros
 SELECT COUNT(*) AS total_registros
 FROM Incidencias_2026;
 
 -- =====================================================
--- INCIDENTES POR MES
+-- CONSULTA POR PRIORIDAD
 -- =====================================================
 
-SELECT 
-    MONTHNAME(fecha) AS mes, 
-    COUNT(*) AS incidentes_mensuales
+SELECT prioridad, COUNT(*) AS núm_incidentes
 FROM reportes_911.incidencias_2026
-GROUP BY MONTH(fecha), MONTHNAME(fecha)
-ORDER BY MONTH(fecha);
-
--- =====================================================
--- INCIDENTES POR SEMANA
--- =====================================================
-
-SELECT 
-    DAYNAME(fecha) AS día_semana, 
-    COUNT(*) AS incidentes_por_día_semana
-FROM reportes_911.incidencias_2026
-GROUP BY DAYOFWEEK(fecha), DAYNAME(fecha)
-ORDER BY DAYOFWEEK(fecha);
-
--- =====================================================
--- INCIDENTES POR HORA
--- =====================================================
-SELECT 
-    HOUR(HORA) AS horario, 
-    COUNT(*) AS incidentes_por_hora
-FROM reportes_911.incidencias_2026
-GROUP BY horario
-ORDER BY horario;
-
+GROUP BY prioridad
+ORDER BY núm_incidentes DESC;
