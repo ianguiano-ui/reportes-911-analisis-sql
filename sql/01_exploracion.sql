@@ -28,3 +28,14 @@ SELECT
 FROM reportes_911.incidencias_2026
 GROUP BY DAYOFWEEK(fecha), DAYNAME(fecha)
 ORDER BY DAYOFWEEK(fecha);
+
+-- =====================================================
+-- INCIDENTES POR HORA
+-- =====================================================
+SELECT 
+    HOUR(HORA) AS horario, 
+    COUNT(*) AS incidentes_por_hora
+FROM reportes_911.incidencias_2026
+GROUP BY horario
+ORDER BY horario;
+
