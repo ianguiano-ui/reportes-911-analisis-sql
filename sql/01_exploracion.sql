@@ -67,3 +67,12 @@ FROM reportes_911.incidencias_2026
 GROUP BY municipio
 ORDER BY Total_Incidentes DESC;
 
+-- ====================================================================
+-- CONSULTA DE INCIDENTES TIPO Y PRIORIDAD ESPECIFICA POR MUNICIPIO
+-- ====================================================================
+
+SELECT municipio, COUNT(*) AS num_incidentes
+FROM reportes_911.incidencias_2026
+WHERE tipo = 'Médico' AND prioridad = 'ALTA'
+GROUP BY municipio
+ORDER BY num_incidentes DESC;
