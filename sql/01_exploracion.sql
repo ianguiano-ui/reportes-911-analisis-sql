@@ -80,14 +80,15 @@ ORDER BY num_incidentes DESC;
 -- ====================================================================
 -- CONSULTA DE INCIDENTES POR MUNICIPIO, POR TIPO Y PRIORIDAD ESPECIFICA
 -- ====================================================================
-
 SELECT
     municipio,
-    SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad <> 'ALTA') THEN 1 ELSE 0 END) AS Seguridad,
-    SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad = 'Alta') THEN 1 ELSE 0 END) AS Seguridad_alta,
-	COUNT(*) AS Total_Incidentes
-   
+    SUM(CASE WHEN tipo = 'Seguridad' 
+    THEN 1 ELSE 0 END) AS Seguridad,
+    SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad = 'ALTA') 
+    THEN 1 ELSE 0 END) AS Seguridad_alta,
+    SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad <> 'ALTA') 
+    THEN 1 ELSE 0 END) AS Seguridad_no_alta,
+    COUNT(*) AS Total_Incidentes
 FROM reportes_911.incidencias_2026
-    
 GROUP BY municipio
 ORDER BY Total_Incidentes DESC;
