@@ -98,6 +98,19 @@ Esto permite construir una cuadrícula reproducible, en lugar de asignar las zon
 Resultado / entregable
 Una consulta SQL que calcula las fronteras longitudinales y latitudinales de la cuadrícula 4 × 4.
 
+## 8. Nomenclatura y reglas de asignación de cuadrantes
+
+Se definieron 16 cuadrantes identificados como Q01 a Q16, organizados en una cuadrícula regular de cuatro columnas y cuatro filas.
+
+La numeración comienza en la esquina suroeste (Q01) y avanza de oeste a este. Posteriormente continúa de sur a norte hasta alcanzar Q16 en la esquina noreste.
+
+Cada cuadrante se delimita mediante un intervalo de longitud y otro de latitud.
+
+Para evitar que un incidente situado exactamente sobre una frontera sea asignado a dos cuadrantes, se utilizará una convención de intervalos semiabiertos: se incluye el límite inferior y se excluye el superior en las divisiones interiores. El límite máximo global se incluirá en la última columna o fila, según corresponda.
+
+Esta regla permite que cada registro válido pertenezca a un único cuadrante y facilita la validación de la clasificación.
+
+La cuadrícula representa una división analítica del conjunto de datos sintético, no zonas operativas oficiales.
 
 
 Próximas actividades
