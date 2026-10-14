@@ -23,3 +23,13 @@ MAX(ST_Y(coordenadas)) AS latitud_maxima
 FROM reportes_911.incidencias_2026
 ;
 
+-- =====================================================
+-- SE CALCULA ALTO Y ANCHO, PARA IDENTIFICAR EL CUADRANTE
+DENTRO DEL QUE CAEN TODOS LOS INCIDENTES
+-- =====================================================
+
+SELECT 
+MAX(ST_X(coordenadas)) - MIN(ST_X(coordenadas)) AS rango_longitud,
+MAX(ST_Y(coordenadas)) - MIN(ST_Y(coordenadas)) AS rango_latitud
+FROM reportes_911.incidencias_2026
+;
