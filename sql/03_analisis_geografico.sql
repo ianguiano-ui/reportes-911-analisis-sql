@@ -25,7 +25,7 @@ FROM reportes_911.incidencias_2026
 
 -- =====================================================
 -- SE CALCULA ALTO Y ANCHO, PARA IDENTIFICAR EL CUADRANTE
-DENTRO DEL QUE CAEN TODOS LOS INCIDENTES
+-- DENTRO DEL QUE CAEN TODOS LOS INCIDENTES
 -- =====================================================
 
 SELECT 
@@ -36,7 +36,7 @@ FROM reportes_911.incidencias_2026
 
 -- =====================================================
 -- SE CALCULA ALTO Y ANCHO DE CADA CUADRANTE, PARA ESTE PROYECTO
-SE TRABAJARA CON UNA DE CUADRICULA DE 4X4
+-- SE TRABAJARA CON UNA DE CUADRICULA DE 4X4
 -- =====================================================
   
 /*CALCULO DE ANCHO Y ALTO DE CADA CUADRANTE, SE TRABAJARÁ CON UNA CUADRICULA DE 4X4*/
@@ -49,3 +49,4 @@ MAX(ST_Y(coordenadas)) AS latitud_maxima,
 (MAX(ST_Y(coordenadas)) - MIN(ST_Y(coordenadas)))/4 AS alto_latitud
 FROM reportes_911.incidencias_2026
 ;
+
