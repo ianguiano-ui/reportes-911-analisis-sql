@@ -47,7 +47,60 @@ Los rangos representan diferencias angulares en grados, no distancias físicas e
 
 Se utilizarán como base para definir una cuadrícula reproducible.
 
-## 6. Próximas actividades
+## 6.Cálculo de la extensión de la cuadrícula
+
+Una vez identificados los límites geográficos, se calculó la diferencia entre el valor máximo y mínimo de longitud y latitud.
+
+Esto permite determinar la extensión total del área en grados.
+
+Posteriormente, cada rango se divide entre 4 para obtener el tamaño de cada celda de una cuadrícula regular de 4 × 4.
+
+La lógica utilizada es:
+
+- Extensión longitudinal = longitud máxima − longitud mínima
+- Extensión latitudinal = latitud máxima − latitud mínima
+- Ancho de cada columna = extensión longitudinal ÷ 4
+- Alto de cada fila = extensión latitudinal ÷ 4
+
+Los valores representan grados de longitud y latitud, no kilómetros o metros.
+
+Se seleccionó una cuadrícula regular de 4 × 4, generando 16 cuadrantes.
+
+La selección responde a un criterio de simplicidad y reproducibilidad para el análisis exploratorio.
+
+Cada incidente será asignado posteriormente a un único cuadrante de acuerdo con su longitud y latitud.
+
+La clasificación permitirá agregar los registros por zona y posteriormente cruzarlos con:
+
+- Tipo de incidente
+- Prioridad
+- Municipio
+- Fecha
+- Día de la semana
+- Hora
+
+## 7.Determinación de las fronteras de la cuadrícula
+
+A partir de los límites y del tamaño calculado para cada celda, se determinaron las fronteras de las cuatro columnas y las cuatro filas.
+
+Para cada eje se utilizan incrementos iguales:
+
+- Límite mínimo
+- Primer límite
+- Segundo límite
+- Tercer límite
+- Límite máximo
+
+Las fronteras se obtienen sumando sucesivamente el ancho o alto de cada cuadrante al límite mínimo.
+
+Esto permite construir una cuadrícula reproducible, en lugar de asignar las zonas de manera arbitraria.
+
+Resultado / entregable
+Una consulta SQL que calcula las fronteras longitudinales y latitudinales de la cuadrícula 4 × 4.
+
+
+
+Próximas actividades
 
 1. Definir la metodología de división del área en cuadrantes.
 2. Asignar cada registro a un cuadrante mediante SQL.
