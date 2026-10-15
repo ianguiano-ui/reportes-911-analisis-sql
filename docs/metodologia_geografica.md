@@ -122,6 +122,45 @@ Próximas actividades
 5. Comparar la distribución por tipo de incidente, prioridad y horario.
 6. Preparar los resultados para su visualización en Power BI.
 
+## 7. Clasificación de registros mediante SQL
+
+Objetivo
+Asignar cada registro del dataset a un cuadrante de acuerdo con su longitud y latitud, utilizando los límites calculados para la cuadrícula regular de 4 × 4.
+
+Método
+Se implementó una expresión `CASE WHEN` para evaluar las coordenadas de cada incidente y asignarle una etiqueta.
+
+Se utilizó una subconsulta para extraer las coordenadas del campo espacial `POINT` mediante las funciones `ST_X()` y `ST_Y()`. La consulta exterior utiliza los alias `longitud` y `latitud` para evaluar las condiciones de pertenencia.
+
+Cada cuadrante se define mediante dos condiciones:
+
+- La longitud debe encontrarse dentro de los límites oeste y este.
+- La latitud debe encontrarse dentro de los límites sur y norte.
+
+Ambas condiciones deben cumplirse para asignar el registro al cuadrante.
+
+Se estableció una convención de intervalos semiabiertos: el límite inferior se incluye y el superior se excluye en las divisiones interiores. Esta regla evita que un punto situado exactamente en una frontera sea asignado a dos cuadrantes.
+
+Validación inicial: Q01 y Q02
+La lógica se probó inicialmente con los dos primeros cuadrantes, ubicados en la fila sur de la cuadrícula.
+
+| Clasificación | Número de registros | Porcentaje del total |
+|---|---:|---:|
+| Q01 | 511 | 2.56% |
+| Q02 | 1,175 | 5.88% |
+| Sin clasificar en esta etapa | 18,314 | 91.57% |
+| Total | 20,000 | 100.00% |
+
+Los resultados corresponden al conjunto de datos sintético utilizado en el proyecto.
+
+Interpretación
+Los 511 registros clasificados en Q01 y los 1,175 clasificados en Q02 cumplen las condiciones geográficas definidas para sus respectivas celdas.
+
+Los 18,314 registros restantes no pertenecen a ninguno de estos dos cuadrantes. No deben interpretarse como puntos fuera del área total, ya que todavía faltan por evaluar los otros 14 cuadrantes.
+
+La suma de los tres grupos es de 20,000 registros, lo que confirma que la consulta de validación considera todos los registros de la tabla.
+
+
 ## 7. Limitaciones
 
 - Los registros y las coordenadas son sintéticos.
