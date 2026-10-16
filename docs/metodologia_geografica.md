@@ -104,6 +104,14 @@ Se definieron 16 cuadrantes identificados como Q01 a Q16, organizados en una cua
 
 La numeración comienza en la esquina suroeste (Q01) y avanza de oeste a este. Posteriormente continúa de sur a norte hasta alcanzar Q16 en la esquina noreste.
 
+| | | | | |
+|---|---|---|---|---|
+| Norte | Q13 | Q14 | Q15 | Q16 |
+| | Q09 | Q10 | Q11 | Q12 |
+| | Q05 | Q06 | Q07 | Q08 |
+| Sur | Q01 | Q02 | Q03 | Q04 |
+| | Oeste | → | → | Este |
+
 Cada cuadrante se delimita mediante un intervalo de longitud y otro de latitud.
 
 Para evitar que un incidente situado exactamente sobre una frontera sea asignado a dos cuadrantes, se utilizará una convención de intervalos semiabiertos: se incluye el límite inferior y se excluye el superior en las divisiones interiores. El límite máximo global se incluirá en la última columna o fila, según corresponda.
@@ -112,8 +120,90 @@ Esta regla permite que cada registro válido pertenezca a un único cuadrante y 
 
 La cuadrícula representa una división analítica del conjunto de datos sintético, no zonas operativas oficiales.
 
+## 9. Regla de asignación
 
-Próximas actividades
+Cada incidente se asigna a un cuadrante mediante una expresión `CASE WHEN`.
+
+Para pertenecer a un cuadrante deben cumplirse simultáneamente dos condiciones:
+
+1. La longitud debe encontrarse dentro del intervalo correspondiente a la columna.
+2. La latitud debe encontrarse dentro del intervalo correspondiente a la fila.
+
+Las condiciones se unen mediante `AND`.
+
+Ejemplo conceptual:
+
+`longitud dentro del intervalo correspondiente`
+
+AND
+
+`latitud dentro del intervalo correspondiente`
+
+→ `Cuadrante`
+
+---
+
+## 10. Tratamiento de las fronteras
+
+Para evitar que un incidente situado exactamente sobre una frontera sea asignado a dos cuadrantes, se utilizó una regla de intervalos semiabiertos.
+
+En las fronteras interiores:
+
+- Se incluye el límite inferior mediante `>=`.
+- Se excluye el límite superior mediante `<`.
+
+Por ejemplo
+
+``longitud >= límite_inferior
+AND longitud < límite_superior``
+
+---
+
+## 11. Límites máximos
+
+Durante la validación se detectó que dos registros quedaban clasificados como Fuera de Rango.
+
+Al revisar sus coordenadas se encontró que coincidían exactamente con los límites máximos de la cuadrícula:
+- Un registro tenía la longitud máxima -99.084018.
+- Otro registro tenía la latitud máxima 19.043807.
+
+La causa fue que los límites máximos estaban siendo evaluados con <, por lo que un valor exactamente igual al máximo quedaba excluido.
+Se corrigió la lógica para que los cuadrantes situados en los bordes máximos acepten también el límite superior mediante <=.
+
+Esto aplica a:
+- Q04, Q08, Q12 y Q16 para la longitud máxima.
+- Q13, Q14, Q15 y Q16 para la latitud máxima.
+- Q16 utiliza <= en ambos límites máximos.
+
+## 12. Validación de los 16 cuadrantes
+
+Una vez construida la clasificación Q01-Q16 se realizó una validación mediante COUNT(*) y GROUP BY Cuadrante.
+El resultado fue:
+
+| Cuadrantes | Incidentes |
+|---|---:|
+| Q01 | 511 |
+| Q02 | 1,175 |
+| Q03 | 178 |
+| Q04 | 0|
+| Q05 | 495 |
+| Q06 | 4,439 |
+| Q07 | 3,819 |
+| Q08 | 0 |
+| Q09 | 3,630 |
+| Q10 | 4,124 |
+| Q11 | 0 |
+| Q12 | 163|
+| Q13 | 502 |
+| Q14 | 0 |
+| Q15 | 0 |
+| Q16 | 964 |
+| FUERA DE RANGO | 0 |
+| TOTAL | 20,000 |
+
+
+
+## Próximas actividades
 
 1. Definir la metodología de división del área en cuadrantes.
 2. Asignar cada registro a un cuadrante mediante SQL.
@@ -122,50 +212,3 @@ Próximas actividades
 5. Comparar la distribución por tipo de incidente, prioridad y horario.
 6. Preparar los resultados para su visualización en Power BI.
 
-## 7. Clasificación de registros mediante SQL
-
-Objetivo
-Asignar cada registro del dataset a un cuadrante de acuerdo con su longitud y latitud, utilizando los límites calculados para la cuadrícula regular de 4 × 4.
-
-Método
-Se implementó una expresión `CASE WHEN` para evaluar las coordenadas de cada incidente y asignarle una etiqueta.
-
-Se utilizó una subconsulta para extraer las coordenadas del campo espacial `POINT` mediante las funciones `ST_X()` y `ST_Y()`. La consulta exterior utiliza los alias `longitud` y `latitud` para evaluar las condiciones de pertenencia.
-
-Cada cuadrante se define mediante dos condiciones:
-
-- La longitud debe encontrarse dentro de los límites oeste y este.
-- La latitud debe encontrarse dentro de los límites sur y norte.
-
-Ambas condiciones deben cumplirse para asignar el registro al cuadrante.
-
-Se estableció una convención de intervalos semiabiertos: el límite inferior se incluye y el superior se excluye en las divisiones interiores. Esta regla evita que un punto situado exactamente en una frontera sea asignado a dos cuadrantes.
-
-Validación inicial: Q01 y Q02
-La lógica se probó inicialmente con los dos primeros cuadrantes, ubicados en la fila sur de la cuadrícula.
-
-| Clasificación | Número de registros | Porcentaje del total |
-|---|---:|---:|
-| Q01 | 511 | 2.56% |
-| Q02 | 1,175 | 5.88% |
-| Sin clasificar en esta etapa | 18,314 | 91.57% |
-| Total | 20,000 | 100.00% |
-
-Los resultados corresponden al conjunto de datos sintético utilizado en el proyecto.
-
-Interpretación
-Los 511 registros clasificados en Q01 y los 1,175 clasificados en Q02 cumplen las condiciones geográficas definidas para sus respectivas celdas.
-
-Los 18,314 registros restantes no pertenecen a ninguno de estos dos cuadrantes. No deben interpretarse como puntos fuera del área total, ya que todavía faltan por evaluar los otros 14 cuadrantes.
-
-La suma de los tres grupos es de 20,000 registros, lo que confirma que la consulta de validación considera todos los registros de la tabla.
-
-
-## 7. Limitaciones
-
-- Los registros y las coordenadas son sintéticos.
-- Los límites calculados describen la extensión de los puntos, no las fronteras oficiales de los municipios.
-- La pertenencia a un cuadrante no implica que exista una zona operativa oficial con esos límites.
-- Antes de calcular distancias físicas será necesario verificar el sistema de referencia espacial y utilizar un método de medición adecuado.
-
-Las conclusiones se limitarán a lo que permitan demostrar los datos y las consultas realizadas.
