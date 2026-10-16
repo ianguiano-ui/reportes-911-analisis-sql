@@ -122,3 +122,103 @@ FROM (
 ) AS Validación_Cuadrantes
 GROUP BY Cuadrante
 ;
+
+-- =================================================================
+-- ASIGNACIÓN DE INCIDETES A CUADRANTES Q01-Q16
+-- =================================================================
+
+SELECT *,
+CASE WHEN (longitud >= -99.28589
+		AND longitud < -99.235422)
+    AND (latitud >= 18.767031
+		AND latitud < 18.836225)
+	THEN 'Q01'
+	WHEN (longitud >= -99.235422
+		AND longitud < -99.184954)
+    AND (latitud >= 18.767031
+		AND latitud < 18.836225)
+	THEN 'Q02'
+    WHEN (longitud >= -99.184954
+		AND longitud < -99.134486)
+    AND (latitud >= 18.767031
+		AND latitud < 18.836225)
+	THEN 'Q03'
+    WHEN (longitud >= -99.134486
+		AND longitud <= -99.084018)
+    AND (latitud >= 18.767031
+		AND latitud < 18.836225)
+	THEN 'Q04'
+    
+    WHEN (longitud >= -99.28589
+		AND longitud < -99.235422)
+    AND (latitud >= 18.836225
+		AND latitud < 18.905419000000002)
+	THEN 'Q05'
+	WHEN (longitud >= -99.235422
+		AND longitud < -99.184954)
+    AND (latitud >= 18.836225
+		AND latitud < 18.905419000000002)
+	THEN 'Q06'
+    WHEN (longitud >= -99.184954
+		AND longitud < -99.134486)
+    AND (latitud >= 18.836225
+		AND latitud < 18.905419000000002)
+	THEN 'Q07'
+    WHEN (longitud >= -99.134486
+		AND longitud <= -99.084018)
+    AND (latitud >= 18.836225
+		AND latitud < 18.905419000000002)
+	THEN 'Q08'
+    
+    WHEN (longitud >= -99.28589
+		AND longitud < -99.235422)
+    AND (latitud >= 18.905419000000002
+		AND latitud < 18.974613)
+	THEN 'Q09'
+	WHEN (longitud >= -99.235422
+		AND longitud < -99.184954)
+    AND (latitud >= 18.905419000000002
+		AND latitud < 18.974613)
+	THEN 'Q10'
+    WHEN (longitud >= -99.184954
+		AND longitud < -99.134486)
+    AND (latitud >= 18.905419000000002
+		AND latitud < 18.974613)
+	THEN 'Q11'
+    WHEN (longitud >= -99.134486
+		AND longitud <= -99.084018)
+    AND (latitud >= 18.905419000000002
+		AND latitud < 18.974613)
+	THEN 'Q12'
+    
+        WHEN (longitud >= -99.28589
+		AND longitud < -99.235422)
+    AND (latitud >= 18.974613
+		AND latitud <= 19.043807)
+	THEN 'Q13'
+	WHEN (longitud >= -99.235422
+		AND longitud < -99.184954)
+    AND (latitud >= 18.974613
+		AND latitud <= 19.043807)
+	THEN 'Q14'
+    WHEN (longitud >= -99.184954
+		AND longitud < -99.134486)
+    AND (latitud >= 18.974613
+		AND latitud <= 19.043807)
+	THEN 'Q15'
+    WHEN (longitud >= -99.134486
+		AND longitud <= -99.084018)
+    AND (latitud >= 18.974613
+		AND latitud <= 19.043807)
+	THEN 'Q16'
+    
+	ELSE 'Fuera de Rango'
+END AS Cuadrante
+
+FROM (
+	SELECT *,
+    ST_X(coordenadas) AS longitud,
+	ST_Y(coordenadas) AS latitud
+	FROM reportes_911.incidencias_2026
+) AS Subconsulta_Cuadrantes
+;
