@@ -93,6 +93,11 @@ A través del proyecto se realizan:
 * Generación de indicadores
 * Interpretación de resultados
 
+## Preguntas de análisis
+
+## Resultados 
+
+## Instrucciones para cargar la base en MySQL Workbench y ejecutar los scripts
 
 ## Nota sobre los datos
 
