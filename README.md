@@ -134,7 +134,82 @@ Las recomendaciones operativas, si se desarrollan, se plantearán como ejercicio
 
 ## Instrucciones para cargar la base en MySQL Workbench y ejecutar los scripts
 
-## Nota sobre los datos
+### Requisitos previos
+
+- Tener instalado MySQL Server.
+- Tener instalado MySQL Workbench.
+- Contar con acceso a una instancia de MySQL.
+- Descargar o clonar este repositorio en el equipo local.
+
+### Paso 1. Obtener los archivos del proyecto
+
+Clona el repositorio de GitHub o descarga el proyecto como archivo ZIP.
+
+Los archivos principales para iniciar el análisis son:
+
+- `data/Reportes_911_2026_20000.sql`: archivo con los datos sintéticos.
+- `sql/01_exploracion.sql`: consultas de exploración general.
+- `sql/02_analisis_temporal.sql`: consultas de análisis temporal.
+- `sql/03_analisis_geografico.sql`: consultas de análisis geográfico.
+
+Los demás scripts se ejecutarán conforme se incorporen las siguientes etapas del proyecto.
+
+### Paso 2. Abrir una conexión en MySQL Workbench
+
+1. Abre MySQL Workbench.
+2. Selecciona una conexión disponible hacia tu instancia de MySQL.
+3. Abre una nueva pestaña de consulta SQL.
+
+### Paso 3. Cargar el archivo de datos
+
+1. En el menú de Workbench, selecciona **File → Open SQL Script**.
+2. Busca el archivo `data/Reportes_911_2026_20000.sql` dentro del repositorio.
+3. Revisa el contenido del script antes de ejecutarlo.
+4. Ejecuta el script completo con el botón de ejecución.
+
+El script debe crear o utilizar la estructura de base de datos y cargar los registros definidos en el archivo.
+
+**Importante:** revisa las instrucciones incluidas en el script antes de ejecutarlo, especialmente si contiene operaciones para crear, eliminar o reemplazar tablas o bases de datos.
+
+### Paso 4. Verificar la carga
+
+Cuando termine la ejecución:
+
+1. Actualiza el panel **Schemas** de Workbench.
+2. Localiza la base de datos `reportes_911`.
+3. Comprueba que exista la tabla `incidencias_2026`.
+4. Abre una nueva pestaña de consulta y verifica el número de registros cargados.
+
+La base de datos del proyecto debe contener 20,000 registros sintéticos.
+
+También se recomienda comprobar que el campo `folio` no tenga duplicados y que los campos geográficos permitan obtener longitud y latitud mediante las funciones espaciales de MySQL.
+
+### Paso 5. Ejecutar las consultas de análisis
+
+Para ejecutar los scripts de análisis:
+
+1. Abre `sql/01_exploracion.sql`.
+3. Abre `sql/02_analisis_temporal.sql`.
+5. Abre `sql/03_analisis_geografico.sql`.
+6. 2. Ejecuta las consultas y revisa los resultados.
+
+Cada script está organizado por etapa para facilitar la lectura, validación y reproducción del análisis.
+
+### Paso 6. Consultar los resultados
+
+Los resultados se muestran en la cuadrícula de resultados de MySQL Workbench. Para cada consulta se recomienda:
+
+- Identificar la pregunta que busca responder.
+- Revisar los filtros, agrupaciones y cálculos utilizados.
+- Validar los totales contra la base original.
+- Interpretar los resultados antes de formular conclusiones.
+- Documentar los hallazgos que posteriormente se utilizarán en Power BI.
+
+### Notas sobre los datos
+
+Este proyecto utiliza datos sintéticos creados con fines educativos y de demostración. Los registros, coordenadas y distribuciones no deben interpretarse como estadísticas oficiales de emergencias o seguridad pública.
+
+La estructura y los scripts pueden evolucionar durante el desarrollo del proyecto. Consulta el repositorio para identificar las versiones más recientes.re los datos
 
 Los datos utilizados en este proyecto son **ficticios y fueron generados exclusivamente con fines educativos**.
 
