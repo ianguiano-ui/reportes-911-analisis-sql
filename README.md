@@ -58,16 +58,32 @@ estadísticas reales de incidencia delictiva o de emergencias.
 reportes-911-analisis-sql/
 │
 ├── README.md
+├── data/
+│   └── Reportes_911_2026_20000.sql
 │
-└── data/
-    └── Reportes_911_2026_20000.sql
+├── sql/
+│   ├── 01_exploracion.sql
+│   ├── 02_analisis_temporal.sql
+│   └── 03_analisis_geografico.sql
+│
+├── docs/
+│   ├── metodologia_geografica.md
+│   └── hallazgos.md
+│
+├── results/
+│   ├── README.md
+│   ├── incidentes_por_municipio.csv
+│   └── incidentes_por_cuadrante.csv
+│
+└── powerbi/
+    └── README.md
 ```
 
 ## Objetivo de aprendizaje
 
 Este proyecto forma parte de mi formación como analista de datos.
 
-A través del proyecto se practicarán:
+A través del proyecto se realizan:
 
 * Consultas SQL
 * Agrupaciones y agregaciones
@@ -77,7 +93,6 @@ A través del proyecto se practicarán:
 * Generación de indicadores
 * Interpretación de resultados
 
-Posteriormente, el proyecto podrá ampliarse con herramientas de análisis y visualización.
 
 ## Nota sobre los datos
 
