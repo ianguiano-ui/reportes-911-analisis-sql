@@ -93,7 +93,42 @@ A través del proyecto se realizan:
 * Generación de indicadores
 * Interpretación de resultados
 
+
 ## Preguntas de análisis
+
+El objetivo de este proyecto es explorar y analizar la distribución temporal y geográfica de los incidentes registrados en una base de datos sintética de reportes de emergencia 9-1-1, utilizando SQL y Power BI para identificar patrones, comparar categorías y comunicar resultados.
+
+Las preguntas se organizan en cuatro dimensiones:
+
+### 1. Exploración general
+- ¿Cuántos incidentes contiene la base de datos?
+- ¿Cómo se distribuyen los incidentes entre los municipios incluidos en el conjunto de datos?
+- ¿Qué tipos de incidentes se presentan con mayor frecuencia?
+- ¿Qué proporción representa cada tipo de incidente dentro de cada municipio?
+- ¿Cómo se distribuyen los incidentes según su prioridad?
+
+### 2. Análisis temporal
+- ¿Cómo se distribuyen los incidentes por mes?
+- ¿Qué días de la semana presentan mayor volumen de registros?
+- ¿En qué horas se registra el mayor número de incidentes?
+- ¿Cómo cambia la distribución de los tipos de incidentes según la hora del día?
+- ¿Qué diferencias se observan al comparar el tipo de incidente, la prioridad y el horario?
+
+### 3. Análisis geográfico
+- ¿Cómo se distribuyen geográficamente los incidentes según sus coordenadas?
+- ¿Cómo se distribuyen los registros entre los 16 cuadrantes de una cuadrícula regular de 4 × 4?
+- ¿Qué cuadrantes concentran el mayor número de incidentes?
+- ¿Qué tipos de incidentes predominan en cada cuadrante?
+- ¿Cómo varía la distribución geográfica al considerar el tipo de incidente y su prioridad?
+
+### 4. Análisis operativo y visualización
+- ¿Qué combinaciones de cuadrante, tipo de incidente, prioridad y horario presentan patrones relevantes dentro del conjunto de datos?
+- ¿Cómo pueden representarse estos patrones mediante tablas, gráficas e indicadores en Power BI?
+- ¿Qué hallazgos pueden comunicarse a partir de los resultados obtenidos y validados mediante SQL?
+
+**Alcance del análisis:** los resultados se utilizarán para demostrar técnicas de exploración, análisis temporal y geográfico, agregación de datos y visualización. Las conclusiones describirán exclusivamente el conjunto de datos sintético y no representan estadísticas reales de incidencia delictiva o de emergencias en Morelos.
+
+Las recomendaciones operativas, si se desarrollan, se plantearán como ejercicios analíticos y no como instrucciones para la asignación real de recursos.
 
 ## Resultados 
 
