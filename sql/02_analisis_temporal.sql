@@ -4,7 +4,8 @@
 USE Reportes_911;
 
 -- =====================================================
--- INCIDENTES POR MES
+-- ¿CUANTOS INCIDENTES EN CADA MES SE TIENEN?
+-- NOS PERMITE IDENTIFICAR FECHAS CON MAYOR INCIDENCIA
 -- =====================================================
 
 SELECT 
@@ -15,7 +16,8 @@ GROUP BY MONTH(fecha), MONTHNAME(fecha)
 ORDER BY MONTH(fecha);
 
 -- =====================================================
--- INCIDENTES POR SEMANA
+-- ¿CUAL ES EL DÍA DE LA SEMANA CON MAYOR INCIDENCIA?
+-- SON CONSULTAS INDIVIDUALES, SIN EMBARGO PERMITEN LA IDENTIFICACIÓN DE FECHAS CON MAYOR INCIDENCIA
 -- =====================================================
 SELECT 
     DAYNAME(fecha) AS día_semana, 
@@ -25,7 +27,8 @@ GROUP BY DAYOFWEEK(fecha), DAYNAME(fecha)
 ORDER BY DAYOFWEEK(fecha);
 
 -- =====================================================
--- INCIDENTES POR HORA
+-- ¿CUAL ES EL HORARIO CON MAYOR INCIDENCIA ?
+-- PERMITIRÁ CREAR UN RELOJ CRIMINOLOGICO QUE AYUDA A LA TOMA DE DECISIONES 
 -- =====================================================
 
 SELECT 
@@ -38,7 +41,14 @@ ORDER BY horario;
 -- =====================================================
 -- INCIDENTES POR HORA Y TIPO
 -- =====================================================
+/*
+PREGUNTA DE ANÁLISIS:
+¿Cómo se distribuyen los tipos de incidentes por hora
+y tipo?
 
+OBJETIVO:
+Identificar diferencias en la concentración horaria por tipo de incidente.
+*/
 SELECT 
     HOUR(HORA) AS horario,
         SUM(CASE WHEN tipo='Médico' THEN 1 ELSE 0 END) AS Médico,
