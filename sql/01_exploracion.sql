@@ -2,7 +2,7 @@
 -- Proyecto: Reportes 911 2026
 
 -- =====================================================
--- VERIFICAR CANTIDAD TOTAL DE REGISTROS
+-- ¿CUAL ES LA CANTIDAD TOTAL DE REGISTROS?
 -- =====================================================
 
 -- Verificar cantidad total de registros
@@ -10,7 +10,8 @@ SELECT COUNT(*) AS total_registros
 FROM reportes_911.incidencias_2026;
 
 -- =====================================================
--- CONSULTA POR PRIORIDAD
+-- ¿CUANTOS INCIDENTES DE CADA PRIORIDAD?
+-- NOS PERMITIRÁ IDENTIFICAR LA DISTRIBUCIÓN DE LOS INCIDENTES POR PRIORIDAD 
 -- =====================================================
 
 SELECT prioridad, COUNT(*) AS núm_incidentes
@@ -19,7 +20,8 @@ GROUP BY prioridad
 ORDER BY núm_incidentes DESC;
 
 -- =====================================================
--- CONSULTA POR TIPO
+-- ¿COMO SE ENCUENTRA LA DISTRIBUCIÓN DE INCIDENTES POR TIPO?
+-- IDENTIFICAR CUAL ES EL TIPO QUE MAS INCIDENTES TIENE
 -- =====================================================
 
 SELECT tipo, COUNT(*) AS núm_incidentes
@@ -28,7 +30,8 @@ GROUP BY tipo
 ORDER BY núm_incidentes DESC;
 
 -- =====================================================
--- CONSULTA POR MUNICIPIO
+-- ¿QUE MUNICIPIO CONCENTRA LA MAYOR CANTIDAD DE INCIDENTES?
+-- NOS PERMITIRÁ IDENTIFICAR EL MUNICIPIO CON MAYOR NÚMERO DE INCIDENTES, Y PARTIR PARA DETALLAR HORARIOS Y LUGARES
 -- =====================================================
 
 SELECT municipio, COUNT(*) AS núm_incidentes
@@ -37,7 +40,8 @@ GROUP BY municipio
 ORDER BY núm_incidentes DESC;
 
 -- =====================================================
--- CONSULTA POR MUNICIPIO Y TIPO
+-- ¿CUAL ES LA DISTRIBUCIÓN POR TIPO DE INCIDENTE EN CADA MUNICIPIO?
+-- CON ESTO EN UN CASO REAL, PODRÍAN TOMARSE ACCIONES QUE PERMITAN MEJORAR LA ATENCIÓN
 -- =====================================================
 
 SELECT municipio, tipo, COUNT(*) AS núm_incidentes
@@ -46,7 +50,8 @@ GROUP BY municipio, tipo
 ORDER BY municipio;
 
 -- ====================================================================
--- CONSULTA DE INCIDENTES POR MUNICIPIO Y % QUE REPRESENTA CADA TIPO
+-- ¿QUE PORCENTAJE REPRESENTA CADA TIPO DE INCIDENTE EN CADA MUNICIPIO?
+-- PERMITIRÁ IDENTIFICAREL SESGO EN POR TIPO DE INCIDENTE EN CADA MUNICIPIO
 -- ====================================================================
 
 SELECT
@@ -68,7 +73,8 @@ GROUP BY municipio
 ORDER BY Total_Incidentes DESC;
 
 -- ====================================================================
--- CONSULTA DE INCIDENTES TIPO Y PRIORIDAD ESPECIFICA POR MUNICIPIO
+-- ¿CUANTOS INCIDENTES DEL TIPO MÉDICO Y CON PRIORIDAD ALTA TIENE CADA MUNICIPIO?
+-- PODEMOS EMPEZAR A ENTRAR EN EL DETALLE DE CADA MUNICIPIO, DEPENDIENDO SU DISTRIBUCIÓN
 -- ====================================================================
 
 SELECT municipio, COUNT(*) AS num_incidentes
@@ -78,7 +84,7 @@ GROUP BY municipio
 ORDER BY num_incidentes DESC;
 
 -- ====================================================================
--- CONSULTA DE INCIDENTES POR MUNICIPIO, POR TIPO Y PRIORIDAD ESPECIFICA
+-- ¿CUANTOS INCIDENTES DE SEGURIDAD, PRIORIDAD ALTA Y EL RESTO TIENE CADA MUNICIPIO?
 -- ====================================================================
 SELECT
     municipio,
