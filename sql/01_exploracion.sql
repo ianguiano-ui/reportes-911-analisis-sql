@@ -92,7 +92,7 @@ SELECT
     THEN 1 ELSE 0 END) AS Seguridad,
     SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad = 'ALTA') 
     THEN 1 ELSE 0 END) AS Seguridad_alta,
-    SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad <> 'ALTA') 
+    SUM(CASE WHEN (tipo = 'Seguridad' AND prioridad <> 'ALTA' AND prioridad IS NOT NULL) 
     THEN 1 ELSE 0 END) AS Seguridad_no_alta,
     COUNT(*) AS Total_Incidentes
 FROM reportes_911.incidencias_2026
