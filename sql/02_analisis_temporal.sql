@@ -1,7 +1,12 @@
 -- Análisis temporal
 -- Proyecto: Reportes 911 2026
 
-USE Reportes_911;
+-- =====================================================
+-- ANTES DE INICIAR CON EL ANALISIS DE LA INFORMACIÓN, 
+-- SE VALIDA QUE LOS CAMPOS TENGAN EL FORMATO CORRECTO
+-- =====================================================
+
+DESCRIBE reportes_911.incidencias_2026;
 
 -- =====================================================
 -- ¿CUANTOS INCIDENTES EN CADA MES SE TIENEN?
