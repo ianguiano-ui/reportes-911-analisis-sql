@@ -3,7 +3,7 @@ Análisis de datos de reportes de emergencia 911 mediante SQL y MySQL.
 
 ## Descripción
 
-Proyecto de análisis de datos basado en un conjunto de datos sintético de reportes de emergencia 911 correspondiente al año 2026.
+Proyecto de análisis de datos basado en un conjunto de datos sintético de reportes de emergencia 911 correspondiente a los l2 meses del  año 2026.
 
 El objetivo del proyecto es practicar y demostrar el uso de SQL para explorar, transformar y analizar información relacionada con incidentes de emergencia.
 
