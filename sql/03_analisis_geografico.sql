@@ -225,6 +225,7 @@ FROM (
 
 -- =====================================================
 -- VALIDACIÓN IDENTIFICIÓN DE INCIDENTES POR CUADRANTE
+-- PERMITE VALIDAD QUE CADA INCIDENTE DE ESTA BASE ESTÁ DENTRO DE ALGÚN CUADRANTE
 -- =====================================================
 
 SELECT COUNT(*), 
