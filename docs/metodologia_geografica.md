@@ -118,7 +118,7 @@ La numeración comienza en la esquina suroeste (Q01) y avanza de oeste a este. P
 
 Cada cuadrante se delimita mediante un intervalo de longitud y otro de latitud.
 
-Para evitar que un incidente situado exactamente sobre una frontera sea asignado a dos cuadrantes, se utilizará una convención de intervalos semiabiertos: se incluye el límite inferior y se excluye el superior en las divisiones interiores. El límite máximo global se incluirá en la última columna o fila, según corresponda.
+Para evitar que un incidente situado exactamente sobre una frontera sea asignado a dos cuadrantes, se utilizó una convención de intervalos semiabiertos: se incluye el límite inferior y se excluye el superior en las divisiones interiores. El límite máximo global se incluye en la última columna o fila, según corresponda.
 
 Esta regla permite que cada registro válido pertenezca a un único cuadrante y facilita la validación de la clasificación.
 
@@ -206,16 +206,14 @@ El resultado fue:
 | FUERA DE RANGO | 0 |
 | TOTAL | 20,000 |
 
+Los cuadrantes vacíos son un resultado de la distribución simulada, no es evidencia de ausencia real de incidentes.
 
 https://github.com/ianguiano-ui/reportes-911-analisis-sql/blob/1f1f6fce1de15696fc127ca29322edbe39f9f508/sql/03_analisis_geografico.sql
 
 
 ## Próximas actividades
 
-1. Definir la metodología de división del área en cuadrantes.
-2. Asignar cada registro a un cuadrante mediante SQL.
-3. Validar que la clasificación cubra los registros esperados.
-4. Calcular frecuencias y porcentajes por cuadrante.
-5. Comparar la distribución por tipo de incidente, prioridad y horario.
-6. Preparar los resultados para su visualización en Power BI.
+1. Calcular frecuencias y porcentajes por cuadrante.
+2. Comparar la distribución por tipo de incidente, prioridad y horario.
+3. Preparar los resultados para su visualización en Power BI.
 
