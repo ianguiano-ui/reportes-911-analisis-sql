@@ -29,7 +29,8 @@ SELECT
     COUNT(*) AS incidentes_por_día_semana
 FROM reportes_911.incidencias_2026
 GROUP BY DAYOFWEEK(fecha), DAYNAME(fecha)
-ORDER BY DAYOFWEEK(fecha);
+ORDER BY incidentes_por_día_semana DESC
+;
 
 -- =====================================================
 -- ¿CUAL ES EL HORARIO CON MAYOR INCIDENCIA ?
