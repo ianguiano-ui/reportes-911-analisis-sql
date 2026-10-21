@@ -93,7 +93,6 @@ A través del proyecto se realizan:
 * Generación de indicadores
 * Interpretación de resultados
 
-
 ## Preguntas de análisis
 
 El objetivo de este proyecto es explorar y analizar la distribución temporal y geográfica de los incidentes registrados en una base de datos sintética de reportes de emergencia 9-1-1, utilizando SQL y Power BI para identificar patrones, comparar categorías y comunicar resultados.
@@ -189,9 +188,9 @@ También se recomienda comprobar que el campo `folio` no tenga duplicados y que 
 Para ejecutar los scripts de análisis:
 
 1. Abre `sql/01_exploracion.sql`.
-3. Abre `sql/02_analisis_temporal.sql`.
-5. Abre `sql/03_analisis_geografico.sql`.
-6. 2. Ejecuta las consultas y revisa los resultados.
+2. Abre `sql/02_analisis_temporal.sql`.
+3. Abre `sql/03_analisis_geografico.sql`.
+4. Ejecuta las consultas y revisa los resultados.
 
 Cada script está organizado por etapa para facilitar la lectura, validación y reproducción del análisis.
 
@@ -209,7 +208,7 @@ Los resultados se muestran en la cuadrícula de resultados de MySQL Workbench. P
 
 Este proyecto utiliza datos sintéticos creados con fines educativos y de demostración. Los registros, coordenadas y distribuciones no deben interpretarse como estadísticas oficiales de emergencias o seguridad pública.
 
-La estructura y los scripts pueden evolucionar durante el desarrollo del proyecto. Consulta el repositorio para identificar las versiones más recientes.re los datos
+La estructura y los scripts pueden evolucionar durante el desarrollo del proyecto. Consulta el repositorio para identificar las versiones más recientes.
 
 Los datos utilizados en este proyecto son **ficticios y fueron generados exclusivamente con fines educativos**.
 
