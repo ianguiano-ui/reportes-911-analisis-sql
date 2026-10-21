@@ -21,6 +21,8 @@ Se utilizaron las funciones espaciales `ST_X()` y `ST_Y()` de MySQL para extraer
 
 Esta consulta permite inspeccionar las coordenadas individuales y preparar los datos para su análisis geográfico.
 
+https://github.com/ianguiano-ui/reportes-911-analisis-sql/blob/1f1f6fce1de15696fc127ca29322edbe39f9f508/sql/03_analisis_geografico.sql
+
 ## 4. Determinación de los límites
 
 Se utilizaron las funciones de agregación `MIN()` y `MAX()` para identificar los extremos de longitud y latitud de todos los registros.
@@ -46,6 +48,8 @@ Se calculó la diferencia entre los valores máximos y mínimos de cada coordena
 Los rangos representan diferencias angulares en grados, no distancias físicas en metros o kilómetros.
 
 Se utilizarán como base para definir una cuadrícula reproducible.
+
+https://github.com/ianguiano-ui/reportes-911-analisis-sql/blob/1f1f6fce1de15696fc127ca29322edbe39f9f508/sql/03_analisis_geografico.sql
 
 ## 6.Cálculo de la extensión de la cuadrícula
 
@@ -141,6 +145,7 @@ AND
 
 → `Cuadrante`
 
+https://github.com/ianguiano-ui/reportes-911-analisis-sql/blob/1f1f6fce1de15696fc127ca29322edbe39f9f508/sql/03_analisis_geografico.sql
 ---
 
 ## 10. Tratamiento de las fronteras
@@ -201,6 +206,8 @@ El resultado fue:
 | FUERA DE RANGO | 0 |
 | TOTAL | 20,000 |
 
+
+https://github.com/ianguiano-ui/reportes-911-analisis-sql/blob/1f1f6fce1de15696fc127ca29322edbe39f9f508/sql/03_analisis_geografico.sql
 
 
 ## Próximas actividades
