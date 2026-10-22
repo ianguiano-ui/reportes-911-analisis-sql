@@ -30,14 +30,21 @@ GROUP BY tipo
 ORDER BY núm_incidentes DESC;
 
 -- =====================================================
--- ¿QUE MUNICIPIO CONCENTRA LA MAYOR CANTIDAD DE INCIDENTES?
+-- ¿QUE MUNICIPIO CONCENTRA LA MAYOR CANTIDAD DE INCIDENTES Y CUAL ES SU PORCENTAJE DE PARTICIPACIÓN?
 -- NOS PERMITIRÁ IDENTIFICAR EL MUNICIPIO CON MAYOR NÚMERO DE INCIDENTES, Y PARTIR PARA DETALLAR HORARIOS Y LUGARES
 -- =====================================================
 
-SELECT municipio, COUNT(*) AS núm_incidentes
-FROM reportes_911.incidencias_2026
-GROUP BY municipio
-ORDER BY núm_incidentes DESC;
+SELECT 
+	municipio, 
+	COUNT(*) AS núm_incidentes,
+    ROUND((COUNT(*)/(SELECT COUNT(*) FROM reportes_911.incidencias_2026))*100,2) AS distribución_porcentaje
+FROM 
+	reportes_911.incidencias_2026
+GROUP BY 
+	municipio
+ORDER BY 
+	núm_incidentes DESC
+;
 
 -- =====================================================
 -- ¿CUAL ES LA DISTRIBUCIÓN POR TIPO DE INCIDENTE EN CADA MUNICIPIO?
