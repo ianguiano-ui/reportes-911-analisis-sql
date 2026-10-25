@@ -150,6 +150,59 @@ Resultado:
 
 Este hallazgo establece la pauta para la siguiente fase del análisis: como ejemplo tomaré el mes con mayor incidencia como punto de partida para desglosarlo por día de la semana, aislando si el despunte operativo está ligado a festividades o fechas particulares, antes de mapear sus horarios y zonas calientes.
 
+## 2.2 Comportamiento por día de la semana, del mes con mayor incidencia
+
+Consulta utilizada:
+
+```sql
+SELECT 
+    DAYNAME(fecha) AS día_semana, 
+    COUNT(*) AS incidentes_por_día_semana
+FROM 
+	reportes_911.incidencias_2026
+WHERE  
+	MONTH(fecha) = (
+		SELECT 
+		MONTH(fecha) AS mes
+	FROM 
+		reportes_911.incidencias_2026
+	GROUP BY MONTH
+		(fecha), 
+		MONTH(fecha)
+	ORDER BY
+		COUNT(*) DESC
+	LIMIT 1
+	)
+GROUP BY 
+	DAYOFWEEK(fecha), 
+    DAYNAME(fecha)
+ORDER BY 
+	incidentes_por_día_semana DESC
+;
+```
+
+Resultado:
+
+| día_semana | incidentes_por_día_semana |
+| :--- | :---: |
+| Saturday   | 342                       |
+| Thursday   | 293                       |
+| Friday     | 274                       |
+| Monday     | 248                       |
+| Sunday     | 212                       |
+| Tuesday    | 201                       |
+| Wednesday  | 195                       |
+
+**Hallazgo**: Al desmenuzar el mes de máxima incidencia (Octubre) por día de la semana, se identifican patrones de comportamiento específicos que rompen la homogeneidad macro y apuntan a dinámicas socioeconómicas locales.
+
+El **Sábado se consolida como el día crítico con 342 incidentes**, seguido por el **Jueves con 293** y el **Viernes con 274**. En contraste, el Domingo y los días laborales de inicio de semana (Martes y Miércoles) registran los niveles más bajos de actividad operativa.
+
+**Siguientes Pasos:**
+*   **Hipótesis de Fin de Semana (Sábado):** El repunte del sábado coincide de manera lógica con el perfil turístico y de descanso del estado de Morelos, el cual experimenta una alta fluctuación poblacional y un incremento de actividades recreativas durante los fines de semana.
+*   **Anomalía del Jueves:** La presencia del jueves como el segundo día con mayor carga operativa representa un hallazgo crítico. Esto sugiere la existencia de dinámicas locales (como actividad nocturna anticipada o patrones específicos de movilidad urbana) que ameritan ser investigados a fondo.
+
+Para transformar estos hallazgos en estrategias de prevención, el análisis avanzará hacia la dimensión micro-temporal, evaluando las **franjas horarias pico específicamente para los días Sábado y Jueves**, aislando los momentos exactos de mayor vulnerabilidad antes de delimitar su distribución geográfica por cuadrantes.
+
 ## 3. Distribución geográfica
 
 Consulta utilizada:
