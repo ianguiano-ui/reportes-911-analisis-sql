@@ -25,10 +25,10 @@ ORDER BY
 	incidentes_mensuales DESC
     ;
 
--- =====================================================
+-- ===========================================================================================
 -- ¿CUAL ES EL DÍA DE LA SEMANA CON MAYOR INCIDENCIA, DEL MES CON MAYOR INCIDENCIA?
 -- NOS PERMITE IR ANALIZANDO EL DETALLE MES POR MES, EN PARTICULAR EN ESTA SE BUSCA EL MÁXIMO 
--- =====================================================
+-- ============================================================================================
 
 /* INCIDENTES POR DÍA DE LA SEMANA DEL MES CON MAYOR INCIDENCIA */
 
@@ -57,17 +57,62 @@ ORDER BY
 	incidentes_por_día_semana DESC
 ;
 
--- =====================================================
--- ¿CUAL ES EL HORARIO CON MAYOR INCIDENCIA ?
+-- ======================================================================================================
+-- ¿CUAL ES EL HORARIO CON MAYOR INCIDENCIA, CONSIDERANDO MES, Y DÍA DE LA SEMANA, CON MAYOR INCIDENCIA ?
 -- PERMITIRÁ CREAR UN RELOJ CRIMINOLOGICO QUE AYUDA A LA TOMA DE DECISIONES 
--- =====================================================
+-- =======================================================================================================
 
 SELECT 
     HOUR(HORA) AS horario, 
     COUNT(*) AS incidentes_por_hora
-FROM reportes_911.incidencias_2026
-GROUP BY horario
-ORDER BY horario;
+FROM 
+	reportes_911.incidencias_2026
+WHERE
+MONTH(fecha) = 
+(
+SELECT 
+	MONTH(fecha) AS mes
+FROM 
+	reportes_911.incidencias_2026
+GROUP BY MONTH
+	(fecha), 
+	MONTH(fecha)
+ORDER BY
+	COUNT(*) DESC
+LIMIT 1
+)
+AND
+DAYOFWEEK(fecha)=
+(
+SELECT 
+    DAYOFWEEK(fecha) AS día_semana
+FROM 
+	reportes_911.incidencias_2026
+WHERE  
+	MONTH(fecha) = (
+		SELECT 
+		MONTH(fecha) AS mes
+	FROM 
+		reportes_911.incidencias_2026
+	GROUP BY MONTH
+		(fecha), 
+		MONTH(fecha)
+	ORDER BY
+		COUNT(*) DESC
+	LIMIT 1
+	)
+GROUP BY 
+	DAYOFWEEK(fecha)
+ORDER BY 
+	COUNT(*) DESC
+    LIMIT 1
+)
+GROUP BY 
+	HOUR(HORA)
+    WITH ROLLUP
+ORDER BY
+	incidentes_por_hora DESC
+;
 
 -- =====================================================
 -- INCIDENTES POR HORA Y TIPO
