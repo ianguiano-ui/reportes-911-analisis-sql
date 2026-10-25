@@ -289,7 +289,7 @@ Para robustecer la propuesta de despliegue operativo, se procederá a ejecutar u
 Para contrastar el perfil recreativo de los sábados, se ejecutó un análisis micro-temporal sobre los días jueves de octubre (totalizando **293 incidentes** mediante `WITH ROLLUP`). Los resultados confirman que el jueves obedece a una dinámica completamente opuesta, regida por la actividad residencial, laboral y escolar local.
 
 | Horario (Hora) | Incidentes por Hora |
-| :---: | ---: |
+| :---: | :---: |
 | **Total General** | **293** |
 | 23:00 | 24 |
 | 07:00 | 23 |
@@ -312,15 +312,50 @@ El análisis cronológico de macro a micro aporta la inteligencia necesaria para
 
 Habiendo determinado con precisión **cuándo** ocurren los picos de demanda operativa, el análisis avanzará hacia su última fase: **el Despliegue Geoespacial por Cuadrantes**, cruzando estas franjas horarias críticas con las coordenadas geográficas para identificar físicamente los focos rojos de incidencia.
 
-
-
 ## 3. Distribución geográfica
 
+Habiendo aislado las variables temporales de máxima criticidad (Sábados de Octubre en las franjas de 13:00 y 17:00 horas), el análisis espacial permite localizar los focos rojos donde se concentran los **57 incidentes operativos** de este subconjunto. 
+
 Consulta utilizada:
-03_analisis_geografico.sql
+```sql
+SELECT 
+	Cuadrante, 
+    COUNT(*) AS Total_Incientes
+FROM 
+	reportes_911.VISTA_VIRTUAL_incidencias_con_cuadrante
+WHERE 
+		MONTH(fecha) = 10
+	AND
+		DAYOFWEEK(fecha) = 7
+	AND
+		 HOUR(HORA) IN (13,17)
+GROUP BY 
+	Cuadrante WITH ROLLUP
+ORDER BY Total_Incientes DESC
+    ;
+```
 
 Resultado:
-...
+Al cruzar los cuadrantes numéricos con la división político-administrativa de la base de datos, se identifica una concentración crítica en el eje centro-oeste del estado, abarcando las zonas urbanas de mayor densidad poblacional en Morelos:
 
-Hallazgo:
-...
+| Cuadrante | Municipio Asociado | Concentración en Horario Crítico |
+| :---: | :---: | :---: |
+| **Q10** | Cuernavaca | **22 incidentes** |
+| **Q07** | Jiutepec / Emiliano Zapata |  **15 incidentes** |
+| **Q09** | Cuernavaca |  **9 incidentes** |
+
+#### Hallazgos y Correlación Demográfica
+
+1. **El Núcleo Crítico (Cuadrante Q10 - Cuernavaca):** Con **22 incidentes** concentrados exclusivamente en este horario, el cuadrante Q10 representa el punto de mayor vulnerabilidad. Geográficamente, abarca el núcleo urbano de Cuernavaca, validando la hipótesis de que el flujo de visitantes de fin de semana impacta directamente en las zonas de mayor actividad comercial y turística de la capital.
+2. **El Corredor Conurbado (Cuadrante Q07 - Jiutepec / Emiliano Zapata):** Registra **15 incidentes** en la franja crítica. Este cuadrante se distribuye entre Jiutepec (2,803 reportes históricos) y Emiliano Zapata (1,016 reportes). Al tratarse de municipios conurbados de alta densidad habitacional y tránsito constante, la incidencia refleja la saturación de los servicios en los límites intermunicipales durante los días de descanso.
+3. **El Cinturón de Acceso (Cuadrante Q09 - Cuernavaca):** Suma **9 incidentes** en el horario evaluado. Su ubicación colindante refuerza el patrón de afectación en las vías de comunicación y sectores urbanos consolidados del oeste/centro de la capital.
+
+#### Propuesta de Despliegue Operativo
+
+Los resultados dictan una estrategia de **Focalización Dinámica**: las corporaciones de seguridad y servicios médicos deben suspender los patrullajes lineales tradicionales los sábados por la tarde, y transicionar a un esquema de cuadrantes fijos de alta visibilidad, concentrando el mayor número de la fuerza operativa disponible de ese turno exclusivamente en los cuadrantes **Q10 y Q07** entre las 13:00 y las 18:00 horas.
+
+---
+
+**Alcance del Proyecto **
+Para efectos de este proyecto educativo, el análisis espacial se ha limitado a las franjas horarias y días de máxima criticidad detectados en la fase temporal. En un entorno de producción real, este modelo debe expandirse mediante un análisis multifactorial continuo, automatizando la correlación de los 16 cuadrantes con la totalidad de las variables (tipología del incidente, días festivos y cruce de prioridades nulas, fuerza operativa etc... ) para generar una matriz de riesgo predictiva completa.
+
