@@ -203,7 +203,7 @@ El **Sábado se consolida como el día crítico con 342 incidentes**, seguido po
 
 Para transformar estos hallazgos en estrategias de prevención, el análisis avanzará hacia la dimensión micro-temporal, evaluando las **franjas horarias pico específicamente para los días Sábado y Jueves**, aislando los momentos exactos de mayor vulnerabilidad antes de delimitar su distribución geográfica por cuadrantes.
 
-## 2.3 Comportamiento por hora del día de la semana con mayor incidencia, del mes con mayor número de reportes
+## 2.3 Comportamiento por hora del día de la semana (sábado) con mayor incidencia, del mes con mayor número de reportes
 
 Consulta utilizada:
 
@@ -283,6 +283,35 @@ Resultado:
 
 **Próxima Fase del Análisis Temporal (Validación de Anomalías):**
 Para robustecer la propuesta de despliegue operativo, se procederá a ejecutar una consulta análoga para los **días Jueves**. Al representar el segundo día con mayor carga estacional, resulta indispensable evaluar si comparte esta naturaleza recreativa o si responde a factores laborales o escolares, garantizando así un diseño de patrullaje diferenciado y eficiente.
+
+## 2.3 Comportamiento por hora del segundo día (jueves) de la semana con mayor incidencia, del mes con mayor número de reportes
+
+Para contrastar el perfil recreativo de los sábados, se ejecutó un análisis micro-temporal sobre los días jueves de octubre (totalizando **293 incidentes** mediante `WITH ROLLUP`). Los resultados confirman que el jueves obedece a una dinámica completamente opuesta, regida por la actividad residencial, laboral y escolar local.
+
+| Horario (Hora) | Incidentes por Hora |
+| :---: | ---: |
+| **Total General** | **293** |
+| 23:00 | 24 |
+| 07:00 | 23 |
+| 11:00 | 20 |
+| 16:00 | 20 |
+| 18:00 | 19 |
+| 00:00 | 18 |
+
+*(Nota: Se muestran las franjas horarias con mayor volumen de actividad para facilitar la interpretación).*
+
+**Hallazgos Clave y Comparativa Operativa:**
+*   **Pico de Movilidad Social Nocturna (23:00 y 00:00 h):** El máximo absoluto se registra a las 23:00 horas (24 reportes). Este patrón es característico de las jornadas de "pre-fin de semana", impulsadas por la población flotante interna, estudiantes universitarios y empleados que radican en el estado y participan en dinámicas sociales nocturnas locales.
+*   **Sostenimiento por Actividad Cotidiana Diurna:** A diferencia del sábado, el jueves presenta picos muy marcados durante las mañanas y tardes (**07:00 h con 23 reportes, 11:00 h con 20 y 16:00 h con 20**). Estos horarios se acoplan de manera exacta con las rutinas de la población fija: traslados escolares, apertura de comercios, horas pico de oficina y flujos laborales.
+
+### Conclusión del Bloque Temporal: Justificación del Despliegue Espacial
+
+El análisis cronológico de macro a micro aporta la inteligencia necesaria para la toma de decisiones:
+1.  **Estrategia Jueves:** Debe priorizar la presencia preventiva en corredores escolares y comerciales en las horas de entrada/salida (07:00 y 16:00 h), mutando a un enfoque de control de vida nocturna hacia la medianoche.
+2.  **Estrategia Sábado:** Debe concentrar recursos en zonas de alta afluencia turística y recreativa desde el mediodía (13:00 h) hasta la tarde-noche.
+
+Habiendo determinado con precisión **cuándo** ocurren los picos de demanda operativa, el análisis avanzará hacia su última fase: **el Despliegue Geoespacial por Cuadrantes**, cruzando estas franjas horarias críticas con las coordenadas geográficas para identificar físicamente los focos rojos de incidencia.
+
 
 
 ## 3. Distribución geográfica
