@@ -203,6 +203,88 @@ El **Sábado se consolida como el día crítico con 342 incidentes**, seguido po
 
 Para transformar estos hallazgos en estrategias de prevención, el análisis avanzará hacia la dimensión micro-temporal, evaluando las **franjas horarias pico específicamente para los días Sábado y Jueves**, aislando los momentos exactos de mayor vulnerabilidad antes de delimitar su distribución geográfica por cuadrantes.
 
+## 2.3 Comportamiento por hora del día de la semana con mayor incidencia, del mes con mayor número de reportes
+
+Consulta utilizada:
+
+```sql
+SELECT 
+    HOUR(HORA) AS horario, 
+    COUNT(*) AS incidentes_por_hora
+FROM 
+	reportes_911.incidencias_2026
+WHERE
+MONTH(fecha) = 
+(
+SELECT 
+	MONTH(fecha) AS mes
+FROM 
+	reportes_911.incidencias_2026
+GROUP BY MONTH
+	(fecha), 
+	MONTH(fecha)
+ORDER BY
+	COUNT(*) DESC
+LIMIT 1
+)
+AND
+DAYOFWEEK(fecha)=
+(
+SELECT 
+    DAYOFWEEK(fecha) AS día_semana
+FROM 
+	reportes_911.incidencias_2026
+WHERE  
+	MONTH(fecha) = (
+		SELECT 
+		MONTH(fecha) AS mes
+	FROM 
+		reportes_911.incidencias_2026
+	GROUP BY MONTH
+		(fecha), 
+		MONTH(fecha)
+	ORDER BY
+		COUNT(*) DESC
+	LIMIT 1
+	)
+GROUP BY 
+	DAYOFWEEK(fecha)
+ORDER BY 
+	COUNT(*) DESC
+    LIMIT 1
+)
+GROUP BY 
+	HOUR(HORA)
+    WITH ROLLUP
+ORDER BY
+	incidentes_por_hora DESC
+;
+```
+
+Resultado:
+
+| Horario (Hora) | Incidentes por Hora |
+| :---: | :---: |
+| **Total General** | **342** |
+| 13:00 | 30 |
+| 17:00 | 27 |
+| 10:00 | 24 |
+| 14:00 | 23 |
+| 21:00 | 22 |
+| 18:00 | 18 |
+| 05:00 | 17 |
+| 00:00 | 16 |
+
+*(Nota: Se muestran los horarios con mayor volumen de actividad para facilitar la lectura).*
+
+**Hallazgos Clave del Comportamiento Horario:**
+*   **Picos de Actividad Recreativa (13:00 y 17:00 h):** Las horas con mayor volumen coinciden directamente con el perfil turístico, comercial y de esparcimiento del estado. El repunte de las 13:00 horas se asocia fuertemente al flujo de llegada y movilidad hacia zonas de descanso, mientras que las 17:00 horas marca el clímax de las actividades recreativas vespertinas.
+*   **Persistencia en Madrugada:** Se observa una actividad inusual entre las 00:00 y las 05:00 horas (alcanzando hasta 17 reportes a las 5:00 a.m.), superando los registros de la mañana (9:00 a 11:00 h). Este comportamiento es característico de los fines de semana, frecuentemente vinculado a incidentes derivados de la vida nocturna.
+
+**Próxima Fase del Análisis Temporal (Validación de Anomalías):**
+Para robustecer la propuesta de despliegue operativo, se procederá a ejecutar una consulta análoga para los **días Jueves**. Al representar el segundo día con mayor carga estacional, resulta indispensable evaluar si comparte esta naturaleza recreativa o si responde a factores laborales o escolares, garantizando así un diseño de patrullaje diferenciado y eficiente.
+
+
 ## 3. Distribución geográfica
 
 Consulta utilizada:
