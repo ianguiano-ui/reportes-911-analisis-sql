@@ -26,15 +26,35 @@ ORDER BY
     ;
 
 -- =====================================================
--- ¿CUAL ES EL DÍA DE LA SEMANA CON MAYOR INCIDENCIA?
--- SON CONSULTAS INDIVIDUALES, SIN EMBARGO PERMITEN LA IDENTIFICACIÓN DE FECHAS CON MAYOR INCIDENCIA
+-- ¿CUAL ES EL DÍA DE LA SEMANA CON MAYOR INCIDENCIA, DEL MES CON MAYOR INCIDENCIA?
+-- NOS PERMITE IR ANALIZANDO EL DETALLE MES POR MES, EN PARTICULAR EN ESTA SE BUSCA EL MÁXIMO 
 -- =====================================================
+
+/* INCIDENTES POR DÍA DE LA SEMANA DEL MES CON MAYOR INCIDENCIA */
+
 SELECT 
     DAYNAME(fecha) AS día_semana, 
     COUNT(*) AS incidentes_por_día_semana
-FROM reportes_911.incidencias_2026
-GROUP BY DAYOFWEEK(fecha), DAYNAME(fecha)
-ORDER BY incidentes_por_día_semana DESC
+FROM 
+	reportes_911.incidencias_2026
+WHERE  
+	MONTH(fecha) = (
+		SELECT 
+		MONTH(fecha) AS mes
+	FROM 
+		reportes_911.incidencias_2026
+	GROUP BY MONTH
+		(fecha), 
+		MONTH(fecha)
+	ORDER BY
+		COUNT(*) DESC
+	LIMIT 1
+	)
+GROUP BY 
+	DAYOFWEEK(fecha), 
+    DAYNAME(fecha)
+ORDER BY 
+	incidentes_por_día_semana DESC
 ;
 
 -- =====================================================
