@@ -107,16 +107,48 @@ Esta uniformidad en los datos permite inferir dos conclusiones estratégicas fun
 1. **Estandarización de Protocolos Médicos:** Dado que la necesidad de asistencia médica mantiene una proporción idéntica sin importar el municipio, se confirma la urgencia de revisar y homologar los protocolos de atención y despacho a nivel estatal, garantizando una respuesta médica uniforme.
 2. **Focalización Táctica de Seguridad:** La constante presencia de incidentes de seguridad abre la puerta de manera directa a un análisis microespacial y temporal. Al no haber diferencias drásticas a nivel municipal, el verdadero valor estratégico radica en analizar la incidencia mediante la segmentación por **cuadrantes y franjas horarias**, permitiendo así la optimización del despliegue policial y el diseño de patrullajes predictivos. 
 
-## 2. Comportamiento temporal
+## 2. Análisis Temporal: Enfoque de Macro a Micro
+
+Para comprender la dinámica de los reportes al servicio de emergencia, el análisis temporal se aborda bajo un enfoque de mayor a menor escala. Este método permite identificar primero la estacionalidad mensual para luego desmenuzar los datos en días de la semana y franjas horarias específicas, localizando con precisión los picos de demanda que guiarán las acciones operativas en campo.
+
+## 2.1 Comportamiento mensual
 
 Consulta utilizada:
-02_analisis_temporal.sql
+
+```sql
+SELECT 
+    MONTHNAME(fecha) AS mes, 
+    COUNT(*) AS incidentes_mensuales
+FROM 
+	reportes_911.incidencias_2026
+GROUP BY MONTH
+	(fecha), 
+    MONTHNAME(fecha)
+ORDER BY
+	incidentes_mensuales DESC
+    ;
+```
 
 Resultado:
-...
 
-Hallazgo:
-...
+| mes       | incidentes_mensuales |
+| :--- | :---: |
+| October   | 1765                 |
+| May       | 1738                 |
+| December  | 1731                 |
+| January   | 1726                 |
+| March     | 1700                 |
+| April     | 1672                 |
+| June      | 1662                 |
+| November  | 1659                 |
+| September | 1655                 |
+| February  | 1590                 |
+| July      | 1554                 |
+| August    | 1548                 |
+
+**Hallazgo**: La distribución mensual de los incidentes muestra un comportamiento globalmente homogéneo, manteniendo un promedio constante a lo largo del año. Sin embargo, se identifican repuntes críticos en los meses de **Octubre (1,765 incidentes)**, **Mayo (1,738)** y **Diciembre (1,731)**. 
+
+Este hallazgo establece la pauta para la siguiente fase del análisis: como ejemplo tomaré el mes con mayor incidencia como punto de partida para desglosarlo por día de la semana, aislando si el despunte operativo está ligado a festividades o fechas particulares, antes de mapear sus horarios y zonas calientes.
 
 ## 3. Distribución geográfica
 
