@@ -16,9 +16,14 @@ DESCRIBE reportes_911.incidencias_2026;
 SELECT 
     MONTHNAME(fecha) AS mes, 
     COUNT(*) AS incidentes_mensuales
-FROM reportes_911.incidencias_2026
-GROUP BY MONTH(fecha), MONTHNAME(fecha)
-ORDER BY incidentes_mensuales DESC;
+FROM 
+	reportes_911.incidencias_2026
+GROUP BY MONTH
+	(fecha), 
+    MONTHNAME(fecha)
+ORDER BY
+	incidentes_mensuales DESC
+    ;
 
 -- =====================================================
 -- ¿CUAL ES EL DÍA DE LA SEMANA CON MAYOR INCIDENCIA?
