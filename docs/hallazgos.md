@@ -146,7 +146,7 @@ Resultado:
 | July      | 1554                 |
 | August    | 1548                 |
 
-**Hallazgo**: La distribución mensual de los incidentes muestra un comportamiento globalmente homogéneo, manteniendo un promedio constante a lo largo del año. Sin embargo, se identifican repuntes críticos en los meses de **Octubre (1,765 incidentes)**, **Mayo (1,738)** y **Diciembre (1,731)**. 
+**Hallazgo**: La distribución mensual presenta variaciones relativamente moderadas, con repuntes en **Octubre (1,765 incidentes)**, **Mayo (1,738)** y **Diciembre (1,731)**. 
 
 Este hallazgo establece la pauta para la siguiente fase del análisis: como ejemplo tomaré el mes con mayor incidencia como punto de partida para desglosarlo por día de la semana, aislando si el despunte operativo está ligado a festividades o fechas particulares, antes de mapear sus horarios y zonas calientes.
 
@@ -198,10 +198,11 @@ Resultado:
 El **Sábado se consolida como el día crítico con 342 incidentes**, seguido por el **Jueves con 293** y el **Viernes con 274**. En contraste, el Domingo y los días laborales de inicio de semana (Martes y Miércoles) registran los niveles más bajos de actividad operativa.
 
 **Siguientes Pasos:**
-*   **Hipótesis de Fin de Semana (Sábado):** El repunte del sábado coincide de manera lógica con el perfil turístico y de descanso del estado de Morelos, el cual experimenta una alta fluctuación poblacional y un incremento de actividades recreativas durante los fines de semana.
+*   **Hipótesis de Fin de Semana (Sábado):** El comportamiento de la incidencia, podría estar relacionado con patrones de actividad recreativa o movilidad, aunque el conjunto de datos no contiene variables que permitan comprobar esta hipótesis.
+*   
 *   **Anomalía del Jueves:** La presencia del jueves como el segundo día con mayor carga operativa representa un hallazgo crítico. Esto sugiere la existencia de dinámicas locales (como actividad nocturna anticipada o patrones específicos de movilidad urbana) que ameritan ser investigados a fondo.
 
-Para transformar estos hallazgos en estrategias de prevención, el análisis avanzará hacia la dimensión micro-temporal, evaluando las **franjas horarias pico específicamente para los días Sábado y Jueves**, aislando los momentos exactos de mayor vulnerabilidad antes de delimitar su distribución geográfica por cuadrantes.
+Para transformar estos hallazgos en propuestas de estrategia para la prevención, el análisis avanzará hacia la dimensión micro-temporal, evaluando las **franjas horarias pico específicamente para los días Sábado y Jueves**, aislando los momentos exactos de mayor vulnerabilidad antes de delimitar su distribución geográfica por cuadrantes.
 
 ## 2.3 Comportamiento por hora del día de la semana (sábado) con mayor incidencia, del mes con mayor número de reportes
 
